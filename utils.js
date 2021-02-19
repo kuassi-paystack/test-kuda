@@ -1,6 +1,6 @@
 const parsePublicXMLKey = key => {
-  const modulus = key.match(/<Modulus>([^<].*)<\/Modulus>/)[1]
-  const exponent = key.match(/<Exponent>([^<].*)<\/Exponent>/)[1]
+  const modulus = String(key).match(/<Modulus>([^<].*)<\/Modulus>/)[1]
+  const exponent = String(key).match(/<Exponent>([^<].*)<\/Exponent>/)[1]
   return rsaPublicKeyPem(modulus, exponent)
 }
 

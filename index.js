@@ -48,8 +48,9 @@ function Kuda (param) {
         }
       })
 
+      //console.log("privateKey",  String(privateKey))
       // plaintext = RSA decrypt password with our privateKey
-      const plaintext = await RSADecrypt(encryptedResponse.password, privateKey).toString()
+      const plaintext = await RSADecrypt(encryptedResponse.password, String(privateKey)).toString()
       // data = AES decrypt data with plaintext
       let data = await aesDecrypt(encryptedResponse.data, plaintext)
       if (typeof data === 'string') data = JSON.parse(data)
