@@ -15,13 +15,13 @@ While the repo is not yet on npm, simply clone this repo and run `yarn` or `npm 
 
 ```js
 const fs = require("fs");
-const Kuda = require("./index"); // or require('kuda-node') if it becomes an npm package and that's the name
+const Kuda = require("./index");  
 
-const publicKey = fs.readFileSync("./kuda.public.xml"); // or path to your kuda public key
-const privateKey = fs.readFileSync("./path-to-private-key.xml"); // or path to your kuda kuda private key
-const clientKey = "name-of-private-key-file"; // name of private key file without the .xml suffix (extension)
+const publicKey = fs.readFileSync("./keys/kuda.public.xml"); // or path to your kuda public key
+const privateKey = fs.readFileSync("./keys/kuda.private.xml"); // or path to your kuda kuda private key
+const clientKey = "9sna4VTS8dNZeLcCl2gX";  
 
-const kuda = Kuda("./index")({
+const kuda = Kuda({
   publicKey,
   privateKey,
   clientKey
@@ -43,53 +43,58 @@ kuda({
 ### Sample request
 
 ```js
-// account creation
+// Get bank list
 const shortid = require("shortid"); // this libarary will generate random id for you. You can install with `yarn add shortid` or `npm i shortid`. You can use any other random key generatring library of your choice
 
 kuda(
   {
-    serviceType: "CREATE_VIRTUAL_ACCOUNT",
-    requestRef: Math.floor(Math.random() * 1000000000000 + 1), // you can generate your random number your own way. This is just an example.
-    data: {
-      email: "ajala@obi.com",
-      phoneNumber: "08012345678",
-      firstName: "Ajala",
-      lastName: "Obi",
-      trackingReference: "vAcc-" + shortid.generate() // you can generate your trackingReference some other way you choose.
-    }
+    serviceType: "BANK_LIST",
+    requestRef: Math.floor(Math.random() * 1000000000000 + 1),
   },
   data => {
     // data => decrypted response from Kuda API
-    // do anything with your data
+
     console.log(JSON.stringify(data, null, 2));
   }
 );
 
-// it can also be called with in an async await fashion like so
-const onboardUser = async(email, phoneNumber, firstName, lastName, trackingReference) => {
-  const response = await kuda({
-    serviceType: 'CREATE_VIRTUAL_ACCOUNT',
-    requestRef: Number, // like Math.floor(Math.random() * 1000000000000 + 1)
-    data: { email, phoneNumber, firstName, lastName, trackingReference }
-  })
-}
+//2 - Send money from Kuda bank to the bank account supported
+
+kuda(
+  {
+    serviceType: "SINGLE_FUND_TRANSFER",
+    requestRef: Math.floor(Math.random() * 1000000000000 + 1),
+    data: {
+      beneficiarybankCode: "999044",
+      beneficiaryAccount: "00000000000",
+      beneficiaryName: "Kuassi Kumako",
+      amount: "350000",
+      narration: "test purpose",
+      nameEnquirySessionID: "",
+      trackingReference: "vAcc-" + shortid.generate(),
+      senderName: "",
+    },
+  },
+  data => {
+
+    console.log(JSON.stringify(data, null, 2));
+  }
+);
+
+// 3- Check transfer status
+kuda(
+  {
+    serviceType: "TRANSACTION_STATUS_QUERY",
+    requestRef: Math.floor(Math.random() * 1000000000000 + 1),
+    data: {
+      isThirdPartyBankTransfer: false,
+      transactionRequestReference: "178259486112",  
+    },
+  },
+  data => {
+
+    console.log(JSON.stringify(data, null, 2));
+  }
+);
 ```
-
-
-> Refer to documentation for respective data types for each fields in the payload
-
-## Contribution & Issues
-
-- Simply **fork the repo**, make changes and **make a pull request**
-- You can open an issue for support or suggestions
-
-## Authors
-
-- [Ajala Abdulsamii](https://codementor.io/jalasem)
-- [Abdulazeez Murainah](https://github.com/gceezle)
-- [Azeez Adio](https://github.com/azeezadio)
-
-# Acknowledgements
-
-- Kuda Bank Team
-- Ebidhaa Services Tech Team
+ 
