@@ -1,6 +1,6 @@
 # Kuda Node.js Library
 
-NodeJS wrapper for making secure request to Kuda API
+Demo for NodeJS wrapper for making secure request to Kuda API
 
 ## Getting started
 
@@ -9,7 +9,7 @@ NodeJS wrapper for making secure request to Kuda API
 
 ## Using the library
 
-While the repo is not yet on npm, simply clone this repo and run `yarn` or `npm install`
+While the repo is not yet on npm, simply clone this repo and run `yarn` or `npm install` and run `node test_api.js` to test the APIs test in the file 
 
 ### Library setup
 
@@ -97,4 +97,3 @@ kuda(
   }
 );
 ```
- 
