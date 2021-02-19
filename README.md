@@ -1,4 +1,4 @@
-# Kuda Node.js Library
+# Kuda Node.js Library demo for Paystack
 
 Demo for NodeJS wrapper for making secure request to Kuda API
 
@@ -9,7 +9,7 @@ Demo for NodeJS wrapper for making secure request to Kuda API
 
 ## Using the library
 
-While the repo is not yet on npm, simply clone this repo and run `yarn` or `npm install` and run `node test_api.js` to test the APIs test in the file 
+While the repo is not yet on npm, simply clone this repo and run `yarn` or `npm install` and run `node test_api.js` to test the APIs test in the file
 
 ### Library setup
 
